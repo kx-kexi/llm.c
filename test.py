@@ -77,14 +77,13 @@ if __name__ == '__main__':
     encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
     decode = lambda l: enc.decode(l)
     device = "cpu"
+    start = "<|endoftext|>"
+    start_ids = encode(start)
+    x = (torch.tensor(start_ids, dtype=torch.long, device=device)[None, ...])
     max_new_tokens = 16
     temperature = 1.0
     top_k = 40
     model = load_model('gpt2_124M.bin', 'gpt2')
     model.eval()
-    start ="who is the CEO of Google?"
-    start = "<|endoftext|>"
-    start_ids = encode(start)
-    x = (torch.tensor(start_ids, dtype=torch.long, device=device)[None, ...])
     y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
     print(decode(y[0].tolist()))
