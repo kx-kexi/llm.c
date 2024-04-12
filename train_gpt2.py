@@ -407,3 +407,4 @@ if __name__ == "__main__":
     y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
     print(decode(y[0].tolist()))
     print('---------------')
+    
